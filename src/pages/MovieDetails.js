@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { FaStar } from 'react-icons/fa';
 
 const MovieDetails = () => {
   const { id } = useParams();  // Get the movie ID from the URL
@@ -29,10 +30,10 @@ const MovieDetails = () => {
   }
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col lg:px-20">
       <div className='flex justify-between mb-6'>
         <div>
-          <h2 className="text-5xl font-medium mb-4">{movie.Title}</h2>
+          <h2 className="text-4xl font-medium mb-4">{movie.Title}</h2>
           <div className='flex gap-3 text-gray-300'>
             {isValidData(movie.Year) && <p>{movie.Year}</p>}
             {isValidData(movie.Rated) && <p>{movie.Rated}</p>}
@@ -40,12 +41,18 @@ const MovieDetails = () => {
           </div>
         </div>
 
-        <Link to={`https://www.imdb.com/title/${movie.imdbID}`} className="hidden md:block">
+        <Link to={`https://www.imdb.com/title/${movie.imdbID}`} className="hidden md:block" Title="Visit IMDb">
           {isValidData(movie.imdbRating) &&
             <div className='flex flex-col text-gray-300 items-start'>
-              <p className='text-sm font-medium'>IMDb RATING</p>
-              <p className='text-xl'><span className='text-white font-medium text-2xl'>{movie.imdbRating}</span>/10</p>
-              <p className='text-sm'>{movie.imdbVotes}</p>
+              <p className='font-medium text-nowrap'>IMDb RATING</p>
+
+              <div className='flex items-center'>
+                <FaStar className='text-3xl text-yellow-400 mr-2'></FaStar>
+                <div className='flex flex-col'>
+                  <p className='text-xl'><span className='text-white font-medium text-2xl'>{movie.imdbRating}</span>/10</p>
+                  <p className='text-sm'>{movie.imdbVotes}</p>
+                </div>
+              </div>
             </div>
           }
         </Link>
@@ -56,7 +63,7 @@ const MovieDetails = () => {
           <img src={movie.Poster} alt={`${movie.Title} Poster`} className="" />
         )}
 
-        <div className='flex flex-col w-full md:w-2/3 text-gray-300'>
+        <div className='flex flex-col w-full text-gray-300'>
           <div className='flex flex-wrap gap-2 mt-2 mb-4'>
             {isValidData(movie.Genre) && movie.Genre.split(', ').map((genre, index) => (
               <span key={index} className="border border-gray-400 text-white px-3 py-1 rounded-full text-sm">
@@ -69,9 +76,10 @@ const MovieDetails = () => {
 
           <Link to={`https://www.imdb.com/title/${movie.imdbID}`} className="block md:hidden">
             {isValidData(movie.imdbRating) &&
-              <div className='flex text-gray-300 items-center gap-2 mb-4'>
-                <p className='text-sm font-bold'>IMDb RATING</p>
-                <p className='text-sm'><span className='text-white font-medium text-lg'>{movie.imdbRating}</span>/10</p>
+              <div className='flex text-gray-300 items-center gap-1 mb-4'>
+                <FaStar className='text-xl text-yellow-400'></FaStar>
+                {/* <p className='text-sm font-bold'>IMDb RATING</p> */}
+                <p className='text-sm  mr-2'><span className='text-white font-medium text-lg'>{movie.imdbRating}</span>/10</p>
                 <p className='text-sm'>{movie.imdbVotes}</p>
               </div>
             }

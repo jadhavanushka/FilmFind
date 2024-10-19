@@ -73,8 +73,8 @@ const Home = () => {
           <button
             onClick={handlePreviousPage}
             disabled={page === 1}
-            className="bg-blue-800 text-white disabled:bg-gray-700 disabled:text-gray-300 px-4 py-2 rounded-lg"
-          >
+            className="py-2.5 px-4 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 
+            hover:bg-blue-800 disabled:bg-gray-700 disabled:border-gray-700 disabled:text-gray-300 rounded-lg">
             Previous
           </button>
           <span className="text-md">
@@ -83,8 +83,8 @@ const Home = () => {
           <button
             onClick={handleNextPage}
             disabled={page * 10 >= totalResults}
-            className="bg-blue-800 text-white disabled:bg-gray-700 disabled:text-gray-300 px-4 py-2 rounded-lg"
-          >
+            className="py-2.5 px-4 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 
+            hover:bg-blue-800 disabled:bg-gray-700 disabled:border-gray-700 disabled:text-gray-300 rounded-lg">
             Next
           </button>
         </div>
