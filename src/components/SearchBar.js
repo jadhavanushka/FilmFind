@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = () => {
     const [query, setQuery] = useState('');
     const [type, setType] = useState('all');
+    const navigate = useNavigate(); // Initialize navigate
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (query.trim()) {
-            onSearch(query, type);
+            // Navigate to the new URL with search query and type
+            navigate(`/?q=${query}&type=${type}`);
         }
     };
-
 
     return (
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
@@ -33,13 +35,12 @@ const SearchBar = ({ onSearch }) => {
                     />
                     <button type="submit" 
                     className="absolute top-0 end-0 py-2.5 px-4 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
-                        <FaSearch></FaSearch>
+                        <FaSearch />
                     </button>
                 </div>
             </div>
         </form>
     );
 };
-
 
 export default SearchBar;

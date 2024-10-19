@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from '../components/SearchBar';
 import MovieList from '../components/MovieList';
@@ -11,6 +12,21 @@ const Home = () => {
   const [totalResults, setTotalResults] = useState(0);
   const [query, setQuery] = useState('');
   const [type, setType] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams(); 
+
+  useEffect(() => {
+    const searchQuery = searchParams.get('q') || '';
+    const searchType = searchParams.get('type') || 'all';
+    const currentPage = parseInt(searchParams.get('page')) || 1;
+
+    setQuery(searchQuery);
+    setType(searchType);
+    setPage(currentPage);
+
+    if (searchQuery) {
+      fetchMovies(searchQuery, searchType, currentPage);
+    }
+  }, [searchParams]); 
 
   const fetchMovies = async (query, type = 'all', page = 1) => {
     setLoading(true);
@@ -19,9 +35,7 @@ const Home = () => {
     let url = `http://www.omdbapi.com/?s=${query}&apikey=${apiKey}`;
 
     // Append filter to the API URL
-    if (type !== 'all')
-      url += `&type=${type}`;
-
+    if (type !== 'all') url += `&type=${type}`;
     if (page) url += `&page=${page}`;
 
     try {
@@ -38,18 +52,19 @@ const Home = () => {
     setLoading(false);
   };
 
-  // Handle search query and filter
   const handleSearch = (query, type) => {
     setQuery(query);
     setType(type);
     setPage(1);
     fetchMovies(query, type, 1);
+    setSearchParams({ q: query, type, page: 1 });
   };
 
   const handleNextPage = () => {
     const newPage = page + 1;
     setPage(newPage);
     fetchMovies(query, type, newPage);
+    setSearchParams({ q: query, type, page: newPage });
   };
 
   const handlePreviousPage = () => {
@@ -57,6 +72,7 @@ const Home = () => {
     if (newPage > 0) {
       setPage(newPage);
       fetchMovies(query, type, newPage);
+      setSearchParams({ q: query, type, page: newPage });
     }
   };
 
@@ -68,7 +84,7 @@ const Home = () => {
       {error && <p className='text-center'>{error}</p>}
       <MovieList movies={movies} />
 
-      {totalResults > 0 &&
+      {totalResults > 0 && (
         <div className="flex justify-center items-center gap-4 mt-4">
           <button
             onClick={handlePreviousPage}
@@ -88,7 +104,7 @@ const Home = () => {
             Next
           </button>
         </div>
-      }
+      )}
     </div>
   );
 };
