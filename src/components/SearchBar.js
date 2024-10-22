@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const SearchBar = () => {
-    const [query, setQuery] = useState('');
-    const [type, setType] = useState('all');
-    const navigate = useNavigate(); // Initialize navigate
+const SearchBar = ({ onSearch, initialQuery = '', initialType = 'all' }) => {
+    const [query, setQuery] = useState(initialQuery);
+    const [type, setType] = useState(initialType);
+
+    useEffect(() => {
+        setQuery(initialQuery);  // Ensure the query updates when props change
+        setType(initialType);    // Ensure the type updates when props change
+    }, [initialQuery, initialType]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (query.trim()) {
-            // Navigate to the new URL with search query and type
-            navigate(`/?q=${query}&type=${type}`);
+            onSearch(query, type);
         }
     };
-
     return (
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
             <div className="flex">
@@ -28,13 +29,13 @@ const SearchBar = () => {
                 </select>
                 <div className="relative w-full">
                     <input type="text"
-                        placeholder="Search..." 
+                        placeholder="Search..."
                         className="p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <button type="submit" 
-                    className="absolute top-0 end-0 py-2.5 px-4 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
+                    <button type="submit"
+                        className="absolute top-0 end-0 py-2.5 px-4 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800">
                         <FaSearch />
                     </button>
                 </div>
