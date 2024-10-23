@@ -12,32 +12,32 @@ const SearchResults = () => {
     const [totalResults, setTotalResults] = useState(0);
     const [query, setQuery] = useState('');
     const [type, setType] = useState('all');
-    const [searchParams, setSearchParams] = useSearchParams(); 
-  
+    const [searchParams, setSearchParams] = useSearchParams();
+
     useEffect(() => {
-      const searchQuery = searchParams.get('q') || '';
-      const searchType = searchParams.get('type') || 'all';
-      const currentPage = parseInt(searchParams.get('page')) || 1;
-  
-      setQuery(searchQuery);
-      setType(searchType);
-      setPage(currentPage);
-  
-      if (searchQuery) {
-        fetchMovies(searchQuery, searchType, currentPage);
-      }
-    }, [searchParams]); 
-  
+        const searchQuery = searchParams.get('q') || '';
+        const searchType = searchParams.get('type') || 'all';
+        const currentPage = parseInt(searchParams.get('page')) || 1;
+
+        setQuery(searchQuery);
+        setType(searchType);
+        setPage(currentPage);
+
+        if (searchQuery) {
+            fetchMovies(searchQuery, searchType, currentPage);
+        }
+    }, [searchParams]);
 
     const fetchMovies = async (query, type = 'all', page = 1) => {
         setLoading(true);
         setError('');
         const apiKey = process.env.REACT_APP_OMDB_API_KEY;
-        let url = `http://www.omdbapi.com/?s=${query}&apikey=${apiKey}`;
+        let url = `http://www.omdbapi.com/?s=${query}&apikey=${apiKey}&page=${page}`;
 
-        // Append filter to the API URL
-        if (type !== 'all') url += `&type=${type}`;
-        if (page) url += `&page=${page}`;
+        // Append type filter to the API URL
+        if (type !== 'all') {
+            url += `&type=${type}`;
+        }
 
         try {
             const response = await axios.get(url);
@@ -54,37 +54,54 @@ const SearchResults = () => {
     };
 
     const handleSearch = (query, type) => {
-        setQuery(query);
-        setType(type);
-        setPage(1);
-        fetchMovies(query, type, 1);
         setSearchParams({ q: query, type, page: 1 });
     };
 
     const handleNextPage = () => {
         const newPage = page + 1;
-        setPage(newPage);
-        fetchMovies(query, type, newPage);
         setSearchParams({ q: query, type, page: newPage });
     };
 
     const handlePreviousPage = () => {
         const newPage = page - 1;
         if (newPage > 0) {
-            setPage(newPage);
-            fetchMovies(query, type, newPage);
             setSearchParams({ q: query, type, page: newPage });
         }
     };
 
+    const handleTabSwitch = (newType) => {
+        setSearchParams({ q: query, type: newType, page: 1 });
+    };
 
     return (
         <div>
             {/* Navbar with search functionality */}
-            <Navbar onSearch={handleSearch} initialQuery = {query} initialType = {type}/>
+            <Navbar onSearch={handleSearch} initialQuery={query} initialType={type} />
+
+            {/* Tabs for switching types */}
+            <div className="flex justify-center items-start mt-4">
+                <button
+                    className={`px-4 py-2 ${type === 'all' ? 'border-b-4 border-b-blue-700 text-white' : 'text-gray-300'}`}
+                    onClick={() => handleTabSwitch('all')}
+                >
+                    All
+                </button>
+                <button
+                    className={`px-4 py-2 ${type === 'movie' ? 'border-b-4 border-b-blue-700 text-white' : 'text-gray-300'}`}
+                    onClick={() => handleTabSwitch('movie')}
+                >
+                    Movies
+                </button>
+                <button
+                    className={`px-4 py-2 ${type === 'series' ? 'border-b-4 border-b-blue-700 text-white' : 'text-gray-300'}`}
+                    onClick={() => handleTabSwitch('series')}
+                >
+                    Series
+                </button>
+            </div>
 
             {/* Display the list of movies */}
-            <div className="p-4 flex flex-col items-center">
+            <div className="pt-0 pb-8 flex flex-col items-center">
                 {loading && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 {movies.length > 0 ? (
@@ -114,8 +131,6 @@ const SearchResults = () => {
                 ) : (
                     !loading && <p>No results found.</p>
                 )}
-
-
             </div>
         </div>
     );
