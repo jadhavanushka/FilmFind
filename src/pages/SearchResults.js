@@ -79,7 +79,7 @@ const SearchResults = () => {
             <Navbar onSearch={handleSearch} initialQuery={query} initialType={type} />
 
             {/* Tabs for switching types */}
-            <div className="flex justify-center items-start mt-4">
+            <div className="flex justify-center items-start mt-2 md:mt-4">
                 <button
                     className={`px-4 py-2 ${type === 'all' ? 'border-b-4 border-b-blue-700 text-white' : 'text-gray-300'}`}
                     onClick={() => handleTabSwitch('all')}

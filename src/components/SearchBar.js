@@ -22,7 +22,7 @@ const SearchBar = ({ onSearch, initialQuery = '', initialType = 'all' }) => {
                 <select
                     value={type}
                     onChange={(e) => setType(e.target.value)}
-                    className="py-2.5 px-4 text-sm font-medium text-start text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 ">
+                    className="py-2.5 px-4 text-sm font-medium text-start bg-gray-800 text-gray-100 border border-gray-600 rounded-s-lg hover:bg-gray-700 ">
                     <option value="all">All</option>
                     <option value="movie">Movie</option>
                     <option value="series">Series</option>
@@ -30,7 +30,7 @@ const SearchBar = ({ onSearch, initialQuery = '', initialType = 'all' }) => {
                 <div className="relative w-full">
                     <input type="text"
                         placeholder="Search..."
-                        className="p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300"
+                        className="p-2.5 w-full z-20 text-sm bg-gray-800 text-gray-50 rounded-e-lg border-s-gray-800 border-s-2 border border-gray-600"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />

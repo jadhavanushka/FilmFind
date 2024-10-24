@@ -17,8 +17,8 @@ const Home = () => {
 
   return (
     <div className="flex flex-col min-h-[80vh] text-white justify-center">
-      <h1 className="text-7xl font-bold mb-8 it text-center">FilmFind</h1>
-      <div>
+      <h1 className="text-5xl md:text-7xl font-bold mb-4 md:mb-8 it text-center">FilmFind</h1>
+      <div className='mx-4'>
         <SearchBar onSearch={handleSearch} initialQuery={query} initialType={type} />
       </div>
     </div>

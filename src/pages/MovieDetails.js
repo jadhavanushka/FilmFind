@@ -46,10 +46,10 @@ const MovieDetails = () => {
     <div>
       <Navbar onSearch={handleSearch} initialQuery={query} initialType={type} />
       
-      <div className="flex flex-col py-5 lg:px-20">
-        <div className='flex justify-between mb-6'>
+      <div className="flex flex-col px-4 my-2 md:my-4 lg:px-20">
+        <div className='flex justify-between mb-4 md:mb-6'>
           <div>
-            <h2 className="text-4xl font-medium mb-4">{movie.Title}</h2>
+            <h2 className="text-2xl md:text-4xl font-medium mb-2 md:mb-4">{movie.Title}</h2>
             <div className='flex gap-3 text-gray-300'>
               {isValidData(movie.Year) && <p>{movie.Year}</p>}
               {isValidData(movie.Rated) && <p>{movie.Rated}</p>}
@@ -76,10 +76,10 @@ const MovieDetails = () => {
 
         <div className="flex flex-col md:flex-row gap-6">
           {isValidData(movie.Poster) && (
-            <img src={movie.Poster} alt={`${movie.Title} Poster`} className="" />
+            <img src={movie.Poster} alt={`${movie.Title} Poster`} className="rounded-lg" />
           )}
 
-          <div className='flex flex-col w-full text-gray-300'>
+          <div className='flex flex-col w-full text-gray-300 mb-8'>
             <div className='flex flex-wrap gap-2 mt-2 mb-4'>
               {isValidData(movie.Genre) && movie.Genre.split(', ').map((genre, index) => (
                 <span key={index} className="border border-gray-400 text-white px-3 py-1 rounded-full text-sm">
