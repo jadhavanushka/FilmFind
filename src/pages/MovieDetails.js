@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaStar } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
+import Loader from '../components/Loader';
 
 const MovieDetails = () => {
   const { id } = useParams();  // Get the movie ID from the URL
@@ -39,13 +40,18 @@ const MovieDetails = () => {
   const isValidData = (data) => data && data !== "N/A";
 
   if (!movie) {
-    return <div className='text-center'>Loading...</div>;
+    return (
+      <div>
+        <Navbar onSearch={handleSearch} initialQuery={query} initialType={type} />
+        <Loader />
+      </div>
+    );
   }
 
   return (
     <div>
       <Navbar onSearch={handleSearch} initialQuery={query} initialType={type} />
-      
+
       <div className="flex flex-col px-4 my-2 md:my-4 lg:px-20">
         <div className='flex justify-between mb-4 md:mb-6'>
           <div>
@@ -94,7 +100,6 @@ const MovieDetails = () => {
               {isValidData(movie.imdbRating) &&
                 <div className='flex text-gray-300 items-center gap-1 mb-4'>
                   <FaStar className='text-xl text-yellow-400'></FaStar>
-                  {/* <p className='text-sm font-bold'>IMDb RATING</p> */}
                   <p className='text-sm  mr-2'><span className='text-white font-medium text-lg'>{movie.imdbRating}</span>/10</p>
                   <p className='text-sm'>{movie.imdbVotes}</p>
                 </div>

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import MovieList from '../components/MovieList';
 import Navbar from '../components/Navbar';
+import Loader from '../components/Loader';
 
 const SearchResults = () => {
     const [movies, setMovies] = useState([]);
@@ -29,6 +30,7 @@ const SearchResults = () => {
     }, [searchParams]);
 
     const fetchMovies = async (query, type = 'all', page = 1) => {
+        setMovies([]);
         setLoading(true);
         setError('');
         const apiKey = process.env.REACT_APP_OMDB_API_KEY;
@@ -102,8 +104,7 @@ const SearchResults = () => {
 
             {/* Display the list of movies */}
             <div className="pt-0 pb-8 flex flex-col items-center">
-                {loading && <p>Loading...</p>}
-                {error && <p>{error}</p>}
+                {loading && <Loader />}
                 {movies.length > 0 ? (
                     <div>
                         <MovieList movies={movies} />
@@ -129,7 +130,10 @@ const SearchResults = () => {
                         </div>
                     </div>
                 ) : (
-                    !loading && <p>No results found.</p>
+                    !loading &&
+                    <p className='absolute top-1/2 py-2.5 px-4 bg-gray-800 text-gray-50 rounded-lg'>
+                        {error || "No results found!"}
+                    </p>
                 )}
             </div>
         </div>
