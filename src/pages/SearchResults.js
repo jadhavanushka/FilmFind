@@ -34,7 +34,7 @@ const SearchResults = () => {
         setLoading(true);
         setError('');
         const apiKey = process.env.REACT_APP_OMDB_API_KEY;
-        let url = `http://www.omdbapi.com/?s=${query}&apikey=${apiKey}&page=${page}`;
+        let url = `https://www.omdbapi.com/?s=${query}&apikey=${apiKey}&page=${page}`;
 
         // Append type filter to the API URL
         if (type !== 'all') {
