@@ -52,11 +52,11 @@ const MovieDetails = () => {
     <div>
       <Navbar onSearch={handleSearch} initialQuery={query} initialType={type} />
 
-      <div className="flex flex-col px-4 my-2 md:my-4 lg:px-20">
+      <div className="flex flex-col px-4 py-6 lg:px-20">
         <div className='flex justify-between mb-4 md:mb-6'>
           <div>
             <h2 className="text-2xl md:text-4xl font-medium mb-2 md:mb-4">{movie.Title}</h2>
-            <div className='flex gap-3 text-gray-300'>
+            <div className='flex gap-3 text-gray-300 text-sm'>
               {isValidData(movie.Year) && <p>{movie.Year}</p>}
               {isValidData(movie.Rated) && <p>{movie.Rated}</p>}
               {isValidData(movie.Runtime) && <p>{movie.Runtime}</p>}
@@ -66,13 +66,13 @@ const MovieDetails = () => {
           <Link to={`https://www.imdb.com/title/${movie.imdbID}`} className="hidden md:block" Title="Visit IMDb">
             {isValidData(movie.imdbRating) &&
               <div className='flex flex-col text-gray-300 items-start'>
-                <p className='font-medium text-nowrap'>IMDb RATING</p>
+                <p className='text-sm font-medium text-nowrap'>IMDb RATING</p>
 
                 <div className='flex items-center'>
-                  <FaStar className='text-3xl text-yellow-400 mr-2'></FaStar>
+                  <FaStar className='text-2xl text-yellow-400 mr-2'></FaStar>
                   <div className='flex flex-col'>
-                    <p className='text-xl'><span className='text-white font-medium text-2xl'>{movie.imdbRating}</span>/10</p>
-                    <p className='text-sm'>{movie.imdbVotes}</p>
+                    <p className=''><span className='text-white font-medium text-xl'>{movie.imdbRating}</span>/10</p>
+                    <p className='text-xs'>{movie.imdbVotes}</p>
                   </div>
                 </div>
               </div>
@@ -82,13 +82,13 @@ const MovieDetails = () => {
 
         <div className="flex flex-col md:flex-row gap-6">
           {isValidData(movie.Poster) && (
-            <img src={movie.Poster} alt={`${movie.Title} Poster`} className="rounded-lg" />
+            <img src={movie.Poster} alt={`${movie.Title} Poster`} className="rounded-lg shadow-2xl shadow-blue-950" />
           )}
 
           <div className='flex flex-col w-full text-gray-300 mb-8'>
             <div className='flex flex-wrap gap-2 mt-2 mb-4'>
               {isValidData(movie.Genre) && movie.Genre.split(', ').map((genre, index) => (
-                <span key={index} className="border border-gray-400 text-white px-3 py-1 rounded-full text-sm">
+                <span key={index} className="border border-gray-700 text-gray-300 bg-gray-800 px-3 py-1 rounded-full text-sm">
                   {genre}
                 </span>
               ))}
@@ -106,17 +106,17 @@ const MovieDetails = () => {
               }
             </Link>
 
-            {isValidData(movie.Director) && <p className='mb-3 pt-3 border-t-2 border-gray-800'>
+            {isValidData(movie.Director) && <p className='mb-3 pt-3 border-t-2 border-gray-800 text-gray-300'>
               <span className='text-white mb-4 mr-1 font-bold'>Director</span> {movie.Director}</p>}
-            {isValidData(movie.Writer) && <p className='mb-3 pt-3 border-t-2 border-gray-800'>
+            {isValidData(movie.Writer) && <p className='mb-3 pt-3 border-t-2 border-gray-800 text-gray-300'>
               <span className='text-white mb-4 mr-1 font-bold'>Writers</span> {movie.Writer}</p>}
-            {isValidData(movie.Actors) && <p className='mb-3 pt-3 border-t-2 border-gray-800'>
+            {isValidData(movie.Actors) && <p className='mb-3 pt-3 border-t-2 border-gray-800 text-gray-300'>
               <span className='text-white mb-4 mr-1 font-bold'>Stars</span> {movie.Actors}</p>}
-            {isValidData(movie.Language) && <p className='mb-3 pt-3 border-t-2 border-gray-800'>
+            {isValidData(movie.Language) && <p className='mb-3 pt-3 border-t-2 border-gray-800 text-gray-300'>
               <span className='text-white mb-4 mr-1 font-bold'>Language</span> {movie.Language}</p>}
-            {isValidData(movie.totalSeasons) && <p className='mb-3 pt-3 border-t-2 border-gray-800'>
+            {isValidData(movie.totalSeasons) && <p className='mb-3 pt-3 border-t-2 border-gray-800 text-gray-300'>
               <span className='text-white mb-4 mr-1 font-bold'>Seasons</span> {movie.totalSeasons}</p>}
-            {isValidData(movie.Released) && <p className='mb-3 pt-3 border-t-2 border-gray-800'>
+            {isValidData(movie.Released) && <p className='mb-3 pt-3 border-t-2 border-gray-800 text-gray-300'>
               <span className='text-white mb-4 mr-1 font-bold'>Released</span> {movie.Released}</p>}
           </div>
         </div>

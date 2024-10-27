@@ -81,7 +81,7 @@ const SearchResults = () => {
             <Navbar onSearch={handleSearch} initialQuery={query} initialType={type} />
 
             {/* Tabs for switching types */}
-            <div className="flex justify-center items-start mt-2 md:mt-4">
+            <div className="flex justify-center items-start mt-2 md:mt-4 ">
                 <button
                     className={`px-4 py-2 ${type === 'all' ? 'border-b-4 border-b-blue-700 text-white' : 'text-gray-300'}`}
                     onClick={() => handleTabSwitch('all')}
@@ -114,7 +114,7 @@ const SearchResults = () => {
                                 onClick={handlePreviousPage}
                                 disabled={page === 1}
                                 className="py-2.5 px-4 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 
-            hover:bg-blue-800 disabled:bg-gray-700 disabled:border-gray-700 disabled:text-gray-300 rounded-lg">
+            hover:bg-blue-800 disabled:bg-gray-700 disabled:border-gray-700 disabled:text-gray-400 rounded-lg">
                                 Previous
                             </button>
                             <span className="text-md">
@@ -124,14 +124,14 @@ const SearchResults = () => {
                                 onClick={handleNextPage}
                                 disabled={page * 10 >= totalResults}
                                 className="py-2.5 px-4 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 
-            hover:bg-blue-800 disabled:bg-gray-700 disabled:border-gray-700 disabled:text-gray-300 rounded-lg">
+            hover:bg-blue-800 disabled:bg-gray-700 disabled:border-gray-700 disabled:text-gray-400 rounded-lg">
                                 Next
                             </button>
                         </div>
                     </div>
                 ) : (
                     !loading &&
-                    <p className='absolute top-1/2 py-2.5 px-4 bg-gray-800 text-gray-50 rounded-lg'>
+                    <p className='absolute top-1/2 py-2.5 px-4 border border-gray-700 text-gray-300 bg-gray-800 rounded-lg shadow-2xl shadow-blue-950'>
                         {error || "No results found!"}
                     </p>
                 )}

@@ -17,7 +17,7 @@ const SearchBar = ({ onSearch, initialQuery = '', initialType = 'all' }) => {
         }
     };
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto shadow-2xl shadow-blue-950">
             <div className="flex">
                 <select
                     value={type}
