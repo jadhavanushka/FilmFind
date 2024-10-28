@@ -1,6 +1,6 @@
 # FilmFind
 
-**FilmFind** is a web application that allows users to search for movies and series. It uses the OMDB API to provide detailed information about each title, including ratings, plot, genre, and more. Check out the site [here](film-find.vercel.app).
+**FilmFind** is a web application that allows users to search for movies and series. It uses the OMDB API to provide detailed information about each title, including ratings, plot, genre, and more. Check out the site [here](https://film-find.vercel.app).
 
 ## Tech Stack
 
