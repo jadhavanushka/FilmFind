@@ -29,7 +29,7 @@ const SearchBar = ({ onSearch, initialQuery = '', initialType = 'all' }) => {
                 </select>
                 <div className="relative w-full">
                     <input type="text"
-                        placeholder="Search..."
+                        placeholder="Search for movies or series..."
                         className="p-2.5 w-full z-20 text-sm bg-gray-800 text-gray-50 rounded-e-lg border-s-gray-800 border-s-2 border border-gray-600"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
